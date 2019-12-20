@@ -6,16 +6,19 @@
 #    By: nkuipers <nkuipers@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/18 09:44:57 by nkuipers       #+#    #+#                 #
-#    Updated: 2019/11/27 14:27:03 by nkuipers      ########   odam.nl          #
+#    Updated: 2019/12/20 12:01:55 by nkuipers      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 		libftprintf.a
-OBJECTS = 	
-
-BONUS = 	
+SRCS = 	ft_parse_flags.c ft_printf_char.c ft_printf_hex.c ft_printf_hex_2.c \
+			ft_printf_int.c ft_printf_int_l.c ft_printf_int_ll.c ft_printf.c \
+			ft_printf_un.c ft_printf_string.c ft_atoi.c ft_bzero.c \
+			ft_isdigit.c ft_strlen.c
+CFILES		=	$(SRCS:%=srcs/%)
+OFILES		=	$(CFILES:.c=.o)
+INCLUDES	= ./Includes
 FLAGS = 	-Wall -Werror -Wextra
-INCLUDES = 	ft_printf.h
 
 # COLOURS
 GREEN	= \x1b[32;01m
@@ -25,11 +28,12 @@ all: $(NAME)
 
 %.o: %.c
 	@echo "$(WHITE)Compiling: $<"
-	@gcc -o $@ -c $< $(FLAGS) -I$(INCLUDES)
+	@gcc -o $@ -c $< $(FLAGS)
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OFILES)
 	@echo "$(GREEN)Creating"
-	@ar rc $(NAME) $(OBJECTS)
+	@ar rc $(NAME) $(OFILES)
+	@ranlib $(NAME)
 	@echo "$(GREEN)Done"
 
 clean: clean_b
@@ -40,14 +44,8 @@ fclean: clean_b
 	@rm -f $(NAME)
 
 clean_b:
-	@rm -f $(BONUS)
-	@rm -f $(OBJECTS)
+	@rm -f $(OFILES)
 
 re: fclean all
-
-bonus: $(OBJECTS) $(BONUS) $(NAME)
-	@echo "$(GREEN)Adding the bonuses..."
-	@ar rc $(NAME) $(OBJECTS) $(BONUS)
-	@echo "$(GREEN)Done"
 
 .PHONY: all clean fclean re bonus
