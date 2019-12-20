@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 09:44:57 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 12:37:06 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/20 12:53:22 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	parse_hub(char **start, t_flags *flags, va_list list, int *rv)
 	parse_width(start, flags, list);
 	parse_precision(start, flags, list);
 	parse_length(start, flags);
-	parse_spec(start, flags, list, rv);
+	if (**start == '%')
+		print_percent(flags, list, rv);
+	else
+		parse_spec(start, flags, list, rv);
 }
 
 int		ft_printf(const char *input, ...)
@@ -71,23 +74,11 @@ int		ft_printf(const char *input, ...)
 		else
 		{
 			input++;
-			if (*input == '%')
-				ft_putnstr_fd_count("%", 1, 1, &rv);
-			else
-			{
-				ft_bzero(&flags, (sizeof(t_flags)));
-				parse_hub((char **)&input, &flags, list, &rv);
-			}
+			ft_bzero(&flags, (sizeof(t_flags)));
+			parse_hub((char **)&input, &flags, list, &rv);
 		}
 		input++;
 	}
 	va_end(list);
 	return (rv);
-}
-
-int		main(void)
-{
-	ft_printf("my printf: %c\n", '\0');
-	printf("printf: %c\n", '\0');
-	return (0);
 }

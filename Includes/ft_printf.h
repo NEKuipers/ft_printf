@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 14:19:34 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 12:05:52 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/20 12:52:44 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void			printint(t_flags *flags, va_list list, int *rv);
 void			printint_reg(t_flags *flags, va_list list, int *rv);
 void			printint_l(t_flags *flags, va_list list, int *rv);
 void			printint_ll(t_flags *flags, va_list list, int *rv);
+void			print_percent(t_flags *flags, va_list list, int *rv);
 void			printstr(t_flags *flags, va_list list, int *rv);
 void			printun(t_flags *flags, va_list list, int *rv);
 void			padder(int width, int precision, char pad, int *rv);
