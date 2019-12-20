@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 11:37:29 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 12:52:59 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/20 13:15:27 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	printchar(t_flags *flags, va_list list, int *rv)
 	}
 }
 
-void	print_percent(t_flags *flags, va_list list, int *rv)
+void	print_percent(t_flags *flags, int *rv)
 {
 	if (flags->width == 0 || flags->width == 1)
 		ft_putchar_fd_count('%', 1, rv);

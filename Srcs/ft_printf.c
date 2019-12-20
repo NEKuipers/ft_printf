@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 09:44:57 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 12:53:22 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/20 13:15:33 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_hub(char **start, t_flags *flags, va_list list, int *rv)
 	parse_precision(start, flags, list);
 	parse_length(start, flags);
 	if (**start == '%')
-		print_percent(flags, list, rv);
+		print_percent(flags, rv);
 	else
 		parse_spec(start, flags, list, rv);
 }
