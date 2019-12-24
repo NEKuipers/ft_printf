@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/19 10:35:33 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 11:44:45 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/24 13:33:29 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void		printint_l(t_flags *flags, va_list list, int *rv)
 		ft_putchar_fd_count(flags->sign, 1, rv);
 	if (flags->leftj)
 	{
-		padder(flags->precision, flags->length, '0', rv);
+		padder(flags->precision, flags->nbrlen, '0', rv);
 		if (flags->precision)
 			ft_putnbr_l_fd_count(nbr, rv);
 	}

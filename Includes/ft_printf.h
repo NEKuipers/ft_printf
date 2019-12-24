@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/27 14:19:34 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 13:15:44 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/24 13:42:40 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			printint_reg(t_flags *flags, va_list list, int *rv);
 void			printint_l(t_flags *flags, va_list list, int *rv);
 void			printint_ll(t_flags *flags, va_list list, int *rv);
 void			print_percent(t_flags *flags, int *rv);
+void			printptr(t_flags *flags, va_list list, int *rv);
 void			printstr(t_flags *flags, va_list list, int *rv);
 void			printun(t_flags *flags, va_list list, int *rv);
 void			padder(int width, int precision, char pad, int *rv);
@@ -59,6 +60,7 @@ void			prepare_hex(t_flags *flags, unsigned int *nbr);
 void			prepare_int(t_flags *flags, int *nbr);
 void			prepare_l_int(t_flags *flags, long int *nbr);
 void			prepare_ll_int(t_flags *flags, long long int *nbr);
+void			prepare_ptr(t_flags *flags, unsigned int *nbr);
 void			prepare_un(t_flags *flags, unsigned int *nbr);
 
 int				ft_nbrlen(int nbr);
@@ -74,6 +76,7 @@ void			ft_putnbr_fd_count(int n, int fd, int *rv);
 void			ft_putnbr_l_fd_count(long int nbr, int *rv);
 void			ft_putnbr_ll_fd_count(long long int nbr, int *rv);
 void			ft_putnstr_fd_count(char *s, int fd, int n, int *rv);
-void			ft_putunsigned_fd(unsigned n, int fd, int *rv);
+void			ft_putptr_lower_count(unsigned int nbr, int *rv);
+void			ft_putunsigned_fd(unsigned int n, int fd, int *rv);
 
 #endif

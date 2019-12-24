@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 11:14:21 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 11:43:50 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/24 13:32:45 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void		prepare_int(t_flags *flags, int *nbr)
 	}
 	if (flags->sign != 0)
 		flags->signornot = 1;
+	if (flags->precision != -2)
+		flags->zero = 0;
 	flags->nbrlen = ft_nbrlen(*nbr);
 	if (flags->precision == -2 ||
 		(flags->precision < flags->nbrlen && *nbr != 0))
@@ -67,21 +69,21 @@ void		printint_reg(t_flags *flags, va_list list, int *rv)
 
 	nbr = va_arg(list, int);
 	prepare_int(flags, &nbr);
-	if (flags->sign > 0 && (flags->leftj || flags->zero))
+	if (flags->signornot && (flags->leftj || flags->zero))
 		ft_putchar_fd_count(flags->sign, 1, rv);
 	if (flags->leftj)
 	{
-		padder(flags->precision, flags->length, '0', rv);
-		if (flags->precision != -2)
+		padder(flags->precision, flags->nbrlen, '0', rv);
+		if (flags->precision)
 			ft_putnbr_fd_count(nbr, 1, rv);
 	}
-	if (flags->leftj == 0 && flags->zero == 1)
+	if (!flags->leftj && flags->zero)
 		padder(flags->width, flags->precision + flags->signornot, '0', rv);
 	else
 		padder(flags->width, flags->precision + flags->signornot, ' ', rv);
-	if (flags->leftj == 0)
+	if (!flags->leftj)
 	{
-		if (flags->sign && !flags->zero)
+		if (flags->signornot && !flags->zero)
 			ft_putchar_fd_count(flags->sign, 1, rv);
 		padder(flags->precision, flags->nbrlen, '0', rv);
 		if (flags->precision)

@@ -6,15 +6,15 @@
 #    By: nkuipers <nkuipers@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/18 09:44:57 by nkuipers       #+#    #+#                 #
-#    Updated: 2019/12/20 12:01:55 by nkuipers      ########   odam.nl          #
+#    Updated: 2019/12/24 13:46:14 by nkuipers      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 		libftprintf.a
 SRCS = 	ft_parse_flags.c ft_printf_char.c ft_printf_hex.c ft_printf_hex_2.c \
 			ft_printf_int.c ft_printf_int_l.c ft_printf_int_ll.c ft_printf.c \
-			ft_printf_un.c ft_printf_string.c ft_atoi.c ft_bzero.c \
-			ft_isdigit.c ft_strlen.c
+			ft_printf_un.c ft_printf_string.c ft_printf_ptr.c \
+			ft_atoi.c ft_bzero.c ft_isdigit.c ft_strlen.c
 CFILES		=	$(SRCS:%=srcs/%)
 OFILES		=	$(CFILES:.c=.o)
 INCLUDES	= ./Includes

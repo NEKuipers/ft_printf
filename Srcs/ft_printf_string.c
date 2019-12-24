@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 12:04:33 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 11:43:48 by nkuipers      ########   odam.nl         */
+/*   Updated: 2019/12/24 12:35:36 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	printstr(t_flags *flags, va_list list, int *rv)
 	char	*temp;
 
 	temp = va_arg(list, char *);
+	if (!temp)
+		temp = "(null)";
 	len = ft_strlen(temp);
 	if (flags->precision < 0 || flags->precision > len)
 		flags->precision = len;

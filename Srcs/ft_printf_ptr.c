@@ -1,77 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf_un.c                                     :+:    :+:            */
+/*   ft_printf_ptr.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/19 16:16:09 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/24 14:00:06 by nkuipers      ########   odam.nl         */
+/*   Created: 2019/12/24 13:37:02 by nkuipers       #+#    #+#                */
+/*   Updated: 2019/12/24 13:45:57 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/ft_printf.h"
 
-int			ft_nbrlen_un(unsigned int nbr)
+void	ft_putptr_lower_count(unsigned int nbr, int *rv)
 {
-	unsigned int	nb;
-	int				length;
+	unsigned int	tmp;
+	unsigned int	len;
+	char			*hex;
 
-	nb = nbr;
-	length = 0;
-	if (nbr == 0)
-		length = 1;
-	while (nb)
+	ft_putnstr_fd_count("0x", 1, 2, rv);
+	hex = "0123456789abcdef";
+	tmp = nbr;
+	len = 1;
+	while (tmp / 16)
 	{
-		nb /= 10;
-		length++;
+		tmp /= 16;
+		len *= 16;
 	}
-	return (length);
+	tmp = nbr;
+	while (len)
+	{
+		ft_putchar_fd_count(hex[nbr / len], 1, rv);
+		nbr %= len;
+		len /= 16;
+	}
 }
 
-void		ft_putunsigned_fd(unsigned int n, int fd, int *rv)
-{
-	if (n > 9)
-		ft_putunsigned_fd(n / 10, fd, rv);
-	ft_putchar_fd_count((char)(n % 10 + 48), fd, rv);
-}
-
-void		prepare_un(t_flags *flags, unsigned int *nbr)
+void	prepare_ptr(t_flags *flags, unsigned int *nbr)
 {
 	if (flags->length == 'h')
-		*nbr = (short)*nbr;
-	else if (flags->length == 'H')
-		*nbr = (char)*nbr;
-	flags->nbrlen = ft_nbrlen_un(*nbr);
+		*nbr = ((unsigned short)*nbr);
+	if (flags->length == 'H')
+		*nbr = ((unsigned char)*nbr);
+	flags->nbrlen = ft_nbrlen_hex(*nbr);
 	if (flags->precision != -2)
 		flags->zero = 0;
+	if (*nbr == 0)
+		flags->hash = 0;
 	if (flags->precision == -2 ||
 		(flags->precision < flags->nbrlen && *nbr != 0))
 		flags->precision = flags->nbrlen;
 }
 
-void		printun(t_flags *flags, va_list list, int *rv)
+void	printptr(t_flags *flags, va_list list, int *rv)
 {
-	unsigned int		nbr;
+	unsigned int nbr;
 
 	nbr = va_arg(list, unsigned int);
-	prepare_un(flags, &nbr);
-	if (flags->signornot && (flags->leftj || flags->zero))
-		ft_putchar_fd_count(flags->sign, 1, rv);
+	prepare_hex(flags, &nbr);
+	flags->width -= 2;
 	if (flags->leftj)
 	{
 		padder(flags->precision, flags->nbrlen, '0', rv);
 		if (flags->precision)
-			ft_putunsigned_fd(nbr, 1, rv);
+			ft_putptr_lower_count(nbr, rv);
 	}
 	if (!flags->leftj && flags->zero)
-		padder(flags->width, flags->precision, '0', rv);
+		padder(flags->width, flags->precision + (flags->hash * 2), '0', rv);
 	else
-		padder(flags->width, flags->precision, ' ', rv);
+		padder(flags->width, flags->precision + (flags->hash * 2), ' ', rv);
 	if (!flags->leftj)
 	{
 		padder(flags->precision, flags->nbrlen, '0', rv);
 		if (flags->precision)
-			ft_putunsigned_fd(nbr, 1, rv);
+			ft_putptr_lower_count(nbr, rv);
 	}
 }
