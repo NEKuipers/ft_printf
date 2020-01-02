@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 10:35:16 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/20 11:44:57 by nkuipers      ########   odam.nl         */
+/*   Updated: 2020/01/02 13:25:35 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parse_precision(char **start, t_flags *flags, va_list list)
 		(*start)++;
 		while (**start)
 		{
-			if (ft_isdigit(**start))
+			if (ft_isdigit(**start) || **start == '-')
 			{
 				flags->precision = ft_atoi(*start);
 				return ;
@@ -66,6 +66,7 @@ void	parse_width(char **start, t_flags *flags, va_list list)
 		if (**start == '*')
 		{
 			flags->width = va_arg(list, int);
+			(*start)++;
 			return ;
 		}
 		else if (**start >= 0 || **start <= 9)

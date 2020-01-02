@@ -6,16 +6,33 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/24 13:37:02 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/24 13:45:57 by nkuipers      ########   odam.nl         */
+/*   Updated: 2020/01/02 13:41:51 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/ft_printf.h"
 
-void	ft_putptr_lower_count(unsigned int nbr, int *rv)
+int		ft_nbrlen_ptr(unsigned long nbr)
 {
-	unsigned int	tmp;
-	unsigned int	len;
+	unsigned long	tmp;
+	int				len;
+
+	tmp = nbr;
+	len = 0;
+	if (nbr == 0)
+		len++;
+	while (tmp)
+	{
+		tmp = tmp / 16;
+		len++;
+	}
+	return (len);
+}
+
+void	ft_putptr_lower_count(unsigned long nbr, int *rv)
+{
+	unsigned long	tmp;
+	unsigned long	len;
 	char			*hex;
 
 	ft_putnstr_fd_count("0x", 1, 2, rv);
@@ -36,13 +53,13 @@ void	ft_putptr_lower_count(unsigned int nbr, int *rv)
 	}
 }
 
-void	prepare_ptr(t_flags *flags, unsigned int *nbr)
+void	prepare_ptr(t_flags *flags, unsigned long *nbr)
 {
 	if (flags->length == 'h')
 		*nbr = ((unsigned short)*nbr);
 	if (flags->length == 'H')
 		*nbr = ((unsigned char)*nbr);
-	flags->nbrlen = ft_nbrlen_hex(*nbr);
+	flags->nbrlen = ft_nbrlen_ptr(*nbr);
 	if (flags->precision != -2)
 		flags->zero = 0;
 	if (*nbr == 0)
@@ -54,10 +71,10 @@ void	prepare_ptr(t_flags *flags, unsigned int *nbr)
 
 void	printptr(t_flags *flags, va_list list, int *rv)
 {
-	unsigned int nbr;
+	unsigned long nbr;
 
-	nbr = va_arg(list, unsigned int);
-	prepare_hex(flags, &nbr);
+	nbr = va_arg(list, unsigned long);
+	prepare_ptr(flags, &nbr);
 	flags->width -= 2;
 	if (flags->leftj)
 	{

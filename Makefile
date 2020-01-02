@@ -6,7 +6,7 @@
 #    By: nkuipers <nkuipers@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/18 09:44:57 by nkuipers       #+#    #+#                 #
-#    Updated: 2019/12/24 13:46:14 by nkuipers      ########   odam.nl          #
+#    Updated: 2020/01/02 09:51:34 by nkuipers      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,5 +47,7 @@ clean_b:
 	@rm -f $(OFILES)
 
 re: fclean all
+
+bonus: $(NAME)
 
 .PHONY: all clean fclean re bonus

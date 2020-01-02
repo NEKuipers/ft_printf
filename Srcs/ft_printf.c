@@ -6,12 +6,11 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 09:44:57 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/24 14:00:50 by nkuipers      ########   odam.nl         */
+/*   Updated: 2020/01/02 13:57:56 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/ft_printf.h"
-#include <stdio.h>
 
 void	ft_store_rv(va_list list, int *rv)
 {
@@ -52,6 +51,11 @@ void	parse_hub(char **start, t_flags *flags, va_list list, int *rv)
 	if (flags->sign != 0)
 		flags->signornot = 1;
 	parse_width(start, flags, list);
+	if (flags->width < 0)
+	{
+		flags->leftj = 1;
+		flags->width *= -1;
+	}
 	parse_precision(start, flags, list);
 	parse_length(start, flags);
 	if (**start == '%')
@@ -66,6 +70,7 @@ int		ft_printf(const char *input, ...)
 	va_list list;
 	int		rv;
 
+	rv = 0;
 	va_start(list, input);
 	while (*input != '\0')
 	{

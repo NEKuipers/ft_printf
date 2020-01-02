@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 11:14:21 by nkuipers       #+#    #+#                */
-/*   Updated: 2019/12/24 13:32:45 by nkuipers      ########   odam.nl         */
+/*   Updated: 2020/01/02 11:17:00 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void		ft_putnbr_fd_count(int n, int fd, int *rv)
 {
 	if (n == -2147483648)
 	{
-		write(fd, "-2", 2);
+		write(fd, "2", 1);
 		n = 147483648;
-		*rv += 2;
+		*rv += 1;
 	}
 	if (n > 9)
 		ft_putnbr_fd_count(n / 10, fd, rv);
