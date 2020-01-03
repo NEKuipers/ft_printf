@@ -6,7 +6,7 @@
 /*   By: nkuipers <nkuipers@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/24 13:37:02 by nkuipers       #+#    #+#                */
-/*   Updated: 2020/01/02 13:41:51 by nkuipers      ########   odam.nl         */
+/*   Updated: 2020/01/03 11:30:10 by nkuipers      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,8 @@ void	prepare_ptr(t_flags *flags, unsigned long *nbr)
 		flags->precision = flags->nbrlen;
 }
 
-void	printptr(t_flags *flags, va_list list, int *rv)
+void	printptr_2(t_flags *flags, unsigned long nbr, int *rv)
 {
-	unsigned long nbr;
-
-	nbr = va_arg(list, unsigned long);
-	prepare_ptr(flags, &nbr);
 	flags->width -= 2;
 	if (flags->leftj)
 	{
@@ -92,4 +88,18 @@ void	printptr(t_flags *flags, va_list list, int *rv)
 		if (flags->precision)
 			ft_putptr_lower_count(nbr, rv);
 	}
+}
+
+void	printptr(t_flags *flags, va_list list, int *rv)
+{
+	unsigned long nbr;
+
+	nbr = va_arg(list, unsigned long);
+	if (nbr == 0 && flags->precision == 0)
+	{
+		ft_putnstr_fd_count("0x", 1, 2, rv);
+		return ;
+	}
+	prepare_ptr(flags, &nbr);
+	printptr_2(flags, nbr, rv);
 }
